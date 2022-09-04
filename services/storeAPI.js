@@ -25,7 +25,6 @@ export async function addToCart({id, colorCode, storageCode}) {
       storageCode
     })
   };
-  console.log(options)
   const res = await fetch(`${API_URL}cart/`, options);
   return res.json();
 }

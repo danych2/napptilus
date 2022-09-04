@@ -21,7 +21,7 @@ export default function Home() {
             return (
               <div key={product.id}>
                 <Link href={`/${product.id}`}>
-                {`${product.brand}: ${product.model}`}
+                  <a data-cy='linkToProduct'>{`${product.brand}: ${product.model}`}</a>
                 </Link>
               </div>
             )
