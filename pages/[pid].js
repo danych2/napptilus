@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
-import { useQuery, useMutation } from '@tanstack/react-query'
-import { getProductDetails, addToCart } from 'services/storeAPI'
+import { useQuery } from '@tanstack/react-query'
+import { getProductDetails } from 'services/storeAPI'
 import Link from 'next/link'
+import AddToCartButton from 'components/addToCartButton';
+import { CartContext } from 'utils/contexts';
 
 export default function ProductDetails() {
   const router = useRouter();
@@ -21,10 +23,6 @@ export default function ProductDetails() {
   const [colorSelected, setColor] = useState();
   const [storageSelected, setStorage] = useState();
 
-  const mutation = useMutation(
-    (productSelected) => addToCart(productSelected)
-  );
-
   useEffect(() => {
     if(isSuccess) {
       setColor(data.options.colors[0].code)
@@ -38,7 +36,7 @@ export default function ProductDetails() {
       <>
       <label>
           Color:
-          <select value={ colorSelected || data.options.colors[0].code } onChange={(e)=>{setColor(e.target.value)}}>
+          <select value={ colorSelected } onChange={(e)=>{setColor(e.target.value)}}>
             {
               data.options.colors.map((color) => {
                 return (
@@ -50,7 +48,7 @@ export default function ProductDetails() {
       </label>
       <label>
           Storage:
-          <select value={ storageSelected || data.options.storages[0].code } onChange={(e)=>{setStorage(e.target.value)}}>
+          <select value={ storageSelected } onChange={(e)=>{setStorage(e.target.value)}}>
             {
               data.options.storages.map((storage) => {
                 return (
@@ -60,12 +58,12 @@ export default function ProductDetails() {
             }
           </select>
       </label>
-      <button onClick={() => {
-          mutation.mutate({ id: pid, colorCode: colorSelected, storageCode: storageSelected })
-        }}
-      >
-        Add to cart
-      </button>
+      
+      <CartContext.Consumer>
+        {({size, incrementSize}) => (
+          <AddToCartButton pid={pid} colorSelected={colorSelected} storageSelected={storageSelected} updateCartSize={incrementSize} />
+        )}
+      </CartContext.Consumer>
       </>
     )
   } else {
