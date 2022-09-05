@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import { Paper, Image, Center, Group, Box } from '@mantine/core'
+import { Paper, Image, Center, Group, Box, Grid } from '@mantine/core'
+import { memo } from 'react'
 
-export default function ProductCard({product}) {
+function ProductCard({product}) {
   return (
-    <>
+    <Grid.Col span={3}>
     <Link href={`/${product.id}`}>
       <Paper
         withBorder
@@ -45,6 +46,8 @@ export default function ProductCard({product}) {
         </Group>
       </Paper>
     </Link>
-    </>
+    </Grid.Col>
   )
 }
+
+export default memo(ProductCard);

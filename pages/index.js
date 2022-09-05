@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from 'services/storeAPI'
-import { Grid, Group } from '@mantine/core';
+import { Grid, Group, TextInput } from '@mantine/core';
 import ProductCard from 'components/productCard';
+import { useState } from 'react';
 
 export default function Home() {
+  const [filter, setFilter] = useState('');
   const response = useQuery(
     ['products'],
     getProducts,
@@ -13,19 +15,25 @@ export default function Home() {
     }
   )
   const { data, isFetching, isSuccess } = response;
+  const filterLC = filter.toLowerCase();
   return (
     <>
     <Group m="xl" position="right">
-      Buscar
+      <TextInput
+        placeholder="Buscar"
+        size="md"
+        value={filter}
+        onChange={(event) => setFilter(event.currentTarget.value)} 
+      />
     </Group>
-    <Grid>
+    <Grid mr="md">
       {
         isSuccess?
-          data.map((product) => {
+          data.filter((product) =>
+              product.brand.toLowerCase().includes(filterLC) || product.model.toLowerCase().includes(filterLC))
+            .map((product) => {
             return (
-              <Grid.Col span={3} key={product.id}>
-                <ProductCard product={product} />
-              </Grid.Col>
+              <ProductCard key={product.id} product={product} />
             )
           })
         :

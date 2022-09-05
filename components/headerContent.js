@@ -6,7 +6,8 @@ import { useRouter } from 'next/router'
 export default function HeaderContent({cartSize}) {
   const router = useRouter()
   const items = [<Link key="products" href="/">products</Link>]
-  if(router.query.pid) items.push(<Link href={`/${router.query.pid}`}>{router.query.pid}</Link>)
+  const pid = router.query.pid
+  if(pid) items.push(<Link key={pid} href={`/${pid}`}>{pid}</Link>)
   return (
     <Stack spacing="xs">
       <Group position="apart">
