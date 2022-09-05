@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from 'services/storeAPI'
-import Link from 'next/link'
+import { Grid, Group } from '@mantine/core';
+import ProductCard from 'components/productCard';
 
 export default function Home() {
   const response = useQuery(
@@ -13,22 +14,24 @@ export default function Home() {
   )
   const { data, isFetching, isSuccess } = response;
   return (
-    <div>
-      Hello Napptilus!
+    <>
+    <Group m="xl" position="right">
+      Buscar
+    </Group>
+    <Grid>
       {
         isSuccess?
           data.map((product) => {
             return (
-              <div key={product.id}>
-                <Link href={`/${product.id}`}>
-                  <a data-cy='linkToProduct'>{`${product.brand}: ${product.model}`}</a>
-                </Link>
-              </div>
+              <Grid.Col span={3} key={product.id}>
+                <ProductCard product={product} />
+              </Grid.Col>
             )
           })
         :
           'Loading'
       }
-    </div>
+    </Grid>
+    </>
   )
 }

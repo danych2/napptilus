@@ -1,16 +1,23 @@
 import { useState } from 'react'
 import { CartContext } from 'utils/contexts';
-import Header from 'components/header';
+import { AppShell, Header } from '@mantine/core';
+import HeaderContent from 'components/headerContent';
 
 export default function Layout({ children }) {
   const [cartSize, setCartSize] = useState(0);
 
   return (
     <CartContext.Provider value={{size: cartSize, incrementSize: () => {setCartSize(cartSize + 1)}}}>
-      <header>
-        <Header cartSize={cartSize} />
-      </header>
-      <main>{children}</main>
+      <AppShell
+        fixed={true}
+        header={
+          <Header height={100} p="md" fixed={true}>
+            <HeaderContent cartSize={cartSize} />
+          </Header>
+        }
+      >
+      {children}
+      </AppShell>
     </CartContext.Provider>
   )
 }
