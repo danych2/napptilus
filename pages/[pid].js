@@ -29,6 +29,16 @@ export default function ProductDetails() {
     },
   );
 
+  const selectorStyle={
+    width:"50%",
+    '.mantine-Select-item[data-selected]': {
+      backgroundColor: 'gray',
+    },
+    '.mantine-Input-input:focus-within': {
+      borderColor: 'gray',
+    },
+  }
+
   return (
     <Grid columns={12} sx={{width:"100%", height:"100%", '.mantine-Col-root':{height:"100%"}}}>
       <Grid.Col span={6}>
@@ -56,14 +66,14 @@ export default function ProductDetails() {
                   value={colorSelected}
                   onChange={setColor}
                   data={data.options.colors.map(color => ({value: color.code, label: color.name}))}
-                  style={{width:"50%"}}
+                  sx={selectorStyle}
                 />
                 <Select
                   label="Storage"
                   value={storageSelected}
                   onChange={setStorage}
                   data={data.options.storages.map(storage => ({value: storage.code, label: storage.name}))}
-                  style={{width:"50%"}}
+                  sx={selectorStyle}
                 />
                 <CartContext.Consumer>
                   {({incrementSize}) => (

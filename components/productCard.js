@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 function ProductCard({product}) {
   return (
-    <Grid.Col span={3}>
+    <Grid.Col sm={6} md={4} lg={3}>
     <Link href={`/${product.id}`}>
       <Paper
         withBorder
@@ -18,6 +18,7 @@ function ProductCard({product}) {
         }}
       >
         <Group
+          noWrap
         >
           <Center
             p="xs"
@@ -35,7 +36,7 @@ function ProductCard({product}) {
           </Center>
           <Box
             p="md"
-            style={{"maxWidth":"50%"}}
+            sx={{maxWidth:"50%"}}
           >
             <b>{product.model}</b>
             <br />

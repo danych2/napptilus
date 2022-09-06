@@ -34,7 +34,12 @@ export default function Home() {
         placeholder="Buscar"
         size="md"
         value={filter}
-        onChange={(event) => setFilter(event.currentTarget.value)} 
+        onChange={(event) => setFilter(event.currentTarget.value)}
+        sx={{
+          '.mantine-Input-input:focus-within': {
+            borderColor: 'gray',
+          },
+        }}
       />
     </Group>
     <Grid mr="md">
