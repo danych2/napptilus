@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { getProductDetails } from 'services/storeAPI';
 import AddToCartButton from 'components/addToCartButton';
 import { CartContext } from 'utils/contexts';
-import { Grid, Center, Image, Divider, Box, Select } from '@mantine/core';
+import { Grid, Center, Image, Divider, Box, Select, Text } from '@mantine/core';
 import ProductDescription from 'components/productDescription';
+import Link from 'next/link';
 
 export default function ProductDetails() {
   const router = useRouter();
@@ -40,7 +41,8 @@ export default function ProductDetails() {
   }
 
   return (
-    <Grid columns={12} sx={{width:"100%", height:"100%", '.mantine-Col-root':{height:"100%"}}}>
+    <>
+    <Grid columns={12} sx={{width:"100%", height:"95%", '.mantine-Col-root':{height:"100%"}}}>
       <Grid.Col span={6}>
         <Center style={{height:"80%"}}>
           {isSuccess?
@@ -100,5 +102,11 @@ export default function ProductDetails() {
         </Box>
       </Grid.Col>
     </Grid>
+    <Center>
+      <Link href="/">
+        <Text size="sm" component="a" variant="link" color="gray" sx={{cursor:"pointer"}}>Go back</Text>
+      </Link>
+    </Center>
+    </>
   )
 }
