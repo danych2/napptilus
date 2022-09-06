@@ -45,9 +45,12 @@ export default function ProductDetails() {
         <Center style={{height:"80%"}}>
           {isSuccess?
             <Image
+              withPlaceholder
               alt={data.model}
               src={data.imgUrl}
-              width="initial"
+              height="300px"
+              width="200px"
+              fit="none"
             />
           :
             'Loading'

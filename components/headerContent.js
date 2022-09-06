@@ -24,7 +24,7 @@ export default function HeaderContent({cartSize}) {
               }}
             />
           </Link>
-          <Text size="sm" mr="xl" className="cartInfo" >{`Products in cart: ${cartSize}`}</Text>
+          <Text size="sm" mr="xl" className="cartInfo" >{`${cartSize} product${cartSize==1?'':'s'} in cart`}</Text>
         </Group>
       </Grid.Col>
 

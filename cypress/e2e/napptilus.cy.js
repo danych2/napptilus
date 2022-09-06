@@ -30,13 +30,13 @@ describe('Store tests', () => {
 
     cy.visit('http://localhost:3000/cGjFJlmqNPIwU59AOcY8H')
 
-    cy.get('.cartInfo').contains('Products in cart: 0')
+    cy.get('.cartInfo').contains('0 products in cart')
 
     cy.get('.addToCartButton').click()
-    cy.get('.cartInfo').contains('Products in cart: 1')
+    cy.get('.cartInfo').contains('1 product in cart')
 
     cy.get('.addToCartButton').click()
-    cy.get('.cartInfo').contains('Products in cart: 2')
+    cy.get('.cartInfo').contains('2 products in cart')
   })
   
   it('Cart persists while changing window', () => {
@@ -45,15 +45,15 @@ describe('Store tests', () => {
 
     cy.visit('http://localhost:3000/cGjFJlmqNPIwU59AOcY8H')
 
-    cy.get('.cartInfo').contains('Products in cart: 0')
+    cy.get('.cartInfo').contains('0 products in cart')
 
     cy.get('.addToCartButton').click()
-    cy.get('.cartInfo').contains('Products in cart: 1')
+    cy.get('.cartInfo').contains('1 product in cart')
     
     cy.get('.linkHome').click()
-    cy.get('.cartInfo').contains('Products in cart: 1')
+    cy.get('.cartInfo').contains('1 product in cart')
 
     cy.get('.linkToProduct').first().click()
-    cy.get('.cartInfo').contains('Products in cart: 1')
+    cy.get('.cartInfo').contains('1 product in cart')
   })
 })

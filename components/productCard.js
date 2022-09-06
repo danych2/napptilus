@@ -11,6 +11,7 @@ function ProductCard({product}) {
         shadow="md"
         radius="md"
         sx={{
+          height: "188px",
           cursor: 'pointer',
           '&:hover': {
             backgroundColor: 'lightgray',
@@ -29,10 +30,16 @@ function ProductCard({product}) {
             }}
           >
             <Image
-              alt=""
+              alt={product.model}
               src={product.imgUrl}
               width="110px"
+              height="146px"
               withPlaceholder
+              sx={{
+                '.mantine-Image-placeholder': {
+                  height:"100%"
+                }
+              }}
             />
           </Center>
           <Box

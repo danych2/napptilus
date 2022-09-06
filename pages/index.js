@@ -3,6 +3,7 @@ import { getProducts } from 'services/storeAPI';
 import { Grid, Group, TextInput, ScrollArea } from '@mantine/core';
 import ProductCard from 'components/productCard';
 import { useState } from 'react';
+import ProductCardSkeleton from 'components/productCardSkeleton';
 
 export default function Home() {
   const [filter, setFilter] = useState('');
@@ -53,7 +54,7 @@ export default function Home() {
             )
           })
         :
-          'Loading'
+          [...Array(12).keys()].map(id => <ProductCardSkeleton key={id} />)
       }
     </Grid>
     </ScrollArea>
