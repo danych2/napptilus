@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Text } from "@mantine/core";
+import { Box, ScrollArea, Text, Table } from "@mantine/core";
 
 export default function ProductDescription({data, isSuccess}) {
   const niceLabels={
@@ -43,9 +43,18 @@ export default function ProductDescription({data, isSuccess}) {
     <Box style={{height:"55%"}}>
       <ScrollArea style={{height:"100%"}}>
         {isSuccess?
-          Object.keys(data).filter((key) => Object.keys(niceLabels).includes(key) && data[key]).map((key) => (
-            <Text key={key}>{`${niceLabels[key]}: ${data[key]}`}</Text>
-          ))
+          <Table
+          sx={{'td': {whiteSpace:"pre-line", verticalAlign: "top"}}}
+          >
+            <tbody>
+            {Object.keys(data).filter((key) => Object.keys(niceLabels).includes(key) && data[key]).map((key) => (
+              <tr key={key}>
+                <td>{`${niceLabels[key]}:`}</td>
+                <td>{Array.isArray(data[key])?data[key].join(" \n "):data[key]}</td>
+              </tr>
+            ))}
+            </tbody>
+          </Table>
         :
           'Loading'
         }
