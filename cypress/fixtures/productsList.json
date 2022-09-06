@@ -1,7 +1,23 @@
-[{
-  "id": "productID",
-  "brand": "HAL",
-  "model": "9000",
-  "price": "1000000",
-  "imgUrl": "https://imageURL.jpg"
-}]
+[
+  {
+      "id": "cGjFJlmqNPIwU59AOcY8H",
+      "brand": "Acer",
+      "model": "Liquid Z6 Plus",
+      "price": "250",
+      "imgUrl": "https://front-test-api.herokuapp.com/images/cGjFJlmqNPIwU59AOcY8H.jpg"
+  },
+  {
+      "id": "ZmGrkLRPXOTpxsU4jjAcv",
+      "brand": "Acer",
+      "model": "Iconia Talk S",
+      "price": "170",
+      "imgUrl": "https://front-test-api.herokuapp.com/images/ZmGrkLRPXOTpxsU4jjAcv.jpg"
+  },
+  {
+      "id": "pMZMhe_ZaAPZoaCCtlDrg",
+      "brand": "Acer",
+      "model": "Liquid Jade 2",
+      "price": "",
+      "imgUrl": "https://front-test-api.herokuapp.com/images/pMZMhe_ZaAPZoaCCtlDrg.jpg"
+  }
+]

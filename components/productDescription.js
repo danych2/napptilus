@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Text, Table } from "@mantine/core";
+import { Box, ScrollArea, Table } from "@mantine/core";
 
 export default function ProductDescription({data, isSuccess}) {
   const niceLabels={

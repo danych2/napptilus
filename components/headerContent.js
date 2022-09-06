@@ -14,16 +14,17 @@ export default function HeaderContent({cartSize}) {
         <Group position="apart">
           <Link href="/">
             <Image
+              className="linkHome"
               alt="ZARA PHONE"
               src={'/static/zaraphone.png'}
-              width="60%"
+              withPlaceholder
               sx={{
-                'img': {cursor: "pointer"},
-                '.mantine-Image-image': {minWidth: "250px"}
+                width:"40% !important",
+                '.mantine-Image-image': {minWidth: "250px", cursor: "pointer"}
               }}
             />
           </Link>
-          <Text size="sm" mr="xl">{`Products in cart: ${cartSize}`}</Text>
+          <Text size="sm" mr="xl" className="cartInfo" >{`Products in cart: ${cartSize}`}</Text>
         </Group>
       </Grid.Col>
 

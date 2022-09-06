@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 function ProductCard({product}) {
   return (
-    <Grid.Col sm={6} md={4} lg={3}>
+    <Grid.Col sm={6} md={4} lg={3} className="linkToProduct">
     <Link href={`/${product.id}`}>
       <Paper
         withBorder
@@ -32,6 +32,7 @@ function ProductCard({product}) {
               alt=""
               src={product.imgUrl}
               width="110px"
+              withPlaceholder
             />
           </Center>
           <Box

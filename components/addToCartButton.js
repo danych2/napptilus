@@ -14,6 +14,7 @@ export default function AddToCartButton({ pid, colorSelected, storageSelected, u
   return (
     <Box sx={{width:"50%"}}>
       <Button
+        className="addToCartButton"
         variant="filled"
         color="gray"
         loading={isLoading}

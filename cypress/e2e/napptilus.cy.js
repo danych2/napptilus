@@ -13,17 +13,47 @@ describe('Store tests', () => {
       .and('include.all.keys', ['id', 'brand', 'imgUrl', 'model', 'price'])
   })
   
-  it('Access product details', () => {
+  it('Link from product list to product details', () => {
     cy.intercept('GET', '*/product/', {fixture: 'productsList.json'})
-      .as('get-products')
-      cy.intercept('GET', '*/product/productID', {fixture: 'productDetails.json'})
-        .as('get-products')
+    cy.intercept('GET', '*/product/cGjFJlmqNPIwU59AOcY8H', {fixture: 'productDetails.json'})
 
     cy.visit('http://localhost:3000/')
 
-    const productLink = cy.get('[data-cy="linkToProduct"]')
+    cy.get('.linkToProduct')
       .first().click()
 
-    cy.url().should('include', 'productID')
+    cy.url().should('include', 'cGjFJlmqNPIwU59AOcY8H')
+  })
+  
+  it('Add element to cart', () => {
+    cy.intercept('GET', '*/product/productID', {fixture: 'productDetails.json'})
+
+    cy.visit('http://localhost:3000/cGjFJlmqNPIwU59AOcY8H')
+
+    cy.get('.cartInfo').contains('Products in cart: 0')
+
+    cy.get('.addToCartButton').click()
+    cy.get('.cartInfo').contains('Products in cart: 1')
+
+    cy.get('.addToCartButton').click()
+    cy.get('.cartInfo').contains('Products in cart: 2')
+  })
+  
+  it('Cart persists while changing window', () => {
+    cy.intercept('GET', '*/product/', {fixture: 'productsList.json'})
+    cy.intercept('GET', '*/product/productID', {fixture: 'productDetails.json'})
+
+    cy.visit('http://localhost:3000/cGjFJlmqNPIwU59AOcY8H')
+
+    cy.get('.cartInfo').contains('Products in cart: 0')
+
+    cy.get('.addToCartButton').click()
+    cy.get('.cartInfo').contains('Products in cart: 1')
+    
+    cy.get('.linkHome').click()
+    cy.get('.cartInfo').contains('Products in cart: 1')
+
+    cy.get('.linkToProduct').first().click()
+    cy.get('.cartInfo').contains('Products in cart: 1')
   })
 })
