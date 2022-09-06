@@ -70,7 +70,6 @@ export default function ProductDetails() {
                   onChange={setColor}
                   data={data.options.colors.map(color => ({value: color.code, label: color.name}))}
                   sx={selectorStyle}
-                  dataCy="colorSelector"
                 />
                 <Select
                   label="Storage"
