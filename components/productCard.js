@@ -1,6 +1,6 @@
-import Link from 'next/link'
-import { Paper, Image, Center, Group, Box, Grid } from '@mantine/core'
-import { memo } from 'react'
+import Link from 'next/link';
+import { Paper, Image, Center, Group, Box, Grid } from '@mantine/core';
+import { memo } from 'react';
 
 function ProductCard({product}) {
   return (

@@ -1,12 +1,12 @@
 import '../styles.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { MantineProvider } from '@mantine/core';
-import NonSSRWrapper from 'utils/NonSSRWrapper'
+import NonSSRWrapper from 'utils/nonSSRWrapper'
 import Layout from 'components/layout'
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return (
     <NonSSRWrapper>
       <QueryClientProvider client={queryClient}>
@@ -26,5 +26,3 @@ function MyApp({ Component, pageProps }) {
     </NonSSRWrapper>
   )
 }
-
-export default MyApp

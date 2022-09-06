@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { CartContext } from 'utils/contexts';
-import { AppShell, Header, ScrollArea } from '@mantine/core';
+import { AppShell, Header } from '@mantine/core';
 import HeaderContent from 'components/headerContent';
 
 export default function Layout({ children }) {

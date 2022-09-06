@@ -1,21 +1,21 @@
-import { useQuery } from '@tanstack/react-query'
-import { getProducts } from 'services/storeAPI'
+import { useQuery } from '@tanstack/react-query';
+import { getProducts } from 'services/storeAPI';
 import { Grid, Group, TextInput, ScrollArea } from '@mantine/core';
 import ProductCard from 'components/productCard';
 import { useState } from 'react';
 
 export default function Home() {
   const [filter, setFilter] = useState('');
-  const response = useQuery(
+  const filterLowercase = filter.toLowerCase();
+  const { data, isSuccess } = useQuery(
     ['products'],
     getProducts,
     {
       refetchInterval: 3600000,
       staleTime: 3600000,
     }
-  )
-  const { data, isFetching, isSuccess } = response;
-  const filterLC = filter.toLowerCase();
+  );
+
   return (
     <ScrollArea
     p="sm"
@@ -41,7 +41,7 @@ export default function Home() {
       {
         isSuccess?
           data.filter((product) =>
-              product.brand.toLowerCase().includes(filterLC) || product.model.toLowerCase().includes(filterLC))
+              product.brand.toLowerCase().includes(filterLowercase) || product.model.toLowerCase().includes(filterLowercase))
             .map((product) => {
             return (
               <ProductCard key={product.id} product={product} />

@@ -27,7 +27,7 @@ export default function ProductDetails() {
         setStorage(data.options.storages[0].code)
       }
     },
-  )
+  );
 
   return (
     <Grid columns={12} sx={{width:"100%", height:"100%", '.mantine-Col-root':{height:"100%"}}}>

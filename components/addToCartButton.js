@@ -1,6 +1,6 @@
 import { Box, Button } from '@mantine/core';
-import { useMutation } from '@tanstack/react-query'
-import { addToCart } from 'services/storeAPI'
+import { useMutation } from '@tanstack/react-query';
+import { addToCart } from 'services/storeAPI';
 
 export default function AddToCartButton({ pid, colorSelected, storageSelected, updateCartSize }) {
 
@@ -14,7 +14,7 @@ export default function AddToCartButton({ pid, colorSelected, storageSelected, u
   return (
     <Box sx={{width:"50%"}}>
       <Button
-        variant="outline"
+        variant="filled"
         color="gray"
         loading={isLoading}
         loaderPosition="right"

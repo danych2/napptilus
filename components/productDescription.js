@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Text } from "@mantine/core"
+import { Box, ScrollArea, Text } from "@mantine/core";
 
 export default function ProductDescription({data, isSuccess}) {
   const niceLabels={
@@ -37,7 +37,7 @@ export default function ProductDescription({data, isSuccess}) {
     sensors: 'Sensors',
     battery: 'Battery',
     colors: 'Colors',
-  }
+  };
 
   return (
     <Box style={{height:"55%"}}>
