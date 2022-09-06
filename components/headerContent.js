@@ -1,6 +1,5 @@
-import { Text, Group, Stack, Center, Breadcrumbs } from '@mantine/core';
+import { Text, Group, Center, Breadcrumbs, Image, Grid } from '@mantine/core';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 export default function HeaderContent({cartSize}) {
@@ -8,29 +7,36 @@ export default function HeaderContent({cartSize}) {
   const items = [{name: 'products', url: '/'}];
   const pid = router.query.pid;
   if(pid) items.push({name: pid, url: `/${pid}`});
-  
+
   return (
-    <Stack spacing="xs" sx={{height:"100%"}}>
-      <Group position="apart">
-        <Image
-          alt="ZARA PHONE"
-          src={'/static/zaraphone.png'}
-          width="417"
-          height="29"
-        />
-        <Text size="sm" mr="xl">{`Products in cart: ${cartSize}`}</Text>
-      </Group>
-      <Center>
-        <Breadcrumbs sx={{'a':{cursor:"pointer"}}}>
-          {items.map(item => (
-            <Link key={item.name} href={item.url}>
-              <Text component="a" variant="link" color="gray">
-                {item.name}
-              </Text>
-            </Link>
-          ))}
-        </Breadcrumbs>
-      </Center>
-    </Stack>
+    <Grid spacing="xs" sx={{height:"100%"}}>
+      <Grid.Col span={12} sx={{height:"90%"}}>
+        <Group position="apart">
+          <Image
+            alt="ZARA PHONE"
+            src={'/static/zaraphone.png'}
+            width="60%"
+            sx={{
+              '.mantine-Image-image': {minWidth: "250px"}
+            }}
+          />
+          <Text size="sm" mr="xl">{`Products in cart: ${cartSize}`}</Text>
+        </Group>
+      </Grid.Col>
+
+      <Grid.Col span={12}>
+        <Center>
+          <Breadcrumbs sx={{'a':{cursor:"pointer"}}}>
+            {items.map(item => (
+              <Link key={item.name} href={item.url}>
+                <Text size="xs" component="a" variant="link" color="gray">
+                  {item.name}
+                </Text>
+              </Link>
+            ))}
+          </Breadcrumbs>
+        </Center>
+      </Grid.Col>
+    </Grid>
   )
 }

@@ -37,7 +37,7 @@ export default function ProductDetails() {
             <Image
               alt={data.model}
               src={data.imgUrl}
-              width="50%"
+              width="initial"
             />
           :
             'Loading'
