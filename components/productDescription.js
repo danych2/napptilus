@@ -1,4 +1,4 @@
-import { Box, ScrollArea, Table } from "@mantine/core";
+import { Box, ScrollArea, Table, Skeleton } from "@mantine/core";
 
 export default function ProductDescription({data, isSuccess}) {
   const niceLabels={
@@ -42,22 +42,27 @@ export default function ProductDescription({data, isSuccess}) {
   return (
     <Box style={{height:"55%"}}>
       <ScrollArea style={{height:"100%"}}>
-        {isSuccess?
-          <Table
-          sx={{'td': {whiteSpace:"pre-line", verticalAlign: "top"}}}
-          >
-            <tbody>
-            {Object.keys(data).filter((key) => Object.keys(niceLabels).includes(key) && data[key]).map((key) => (
+        <Table
+        sx={{'td': {whiteSpace:"pre-line", verticalAlign: "top"}}}
+        >
+          <tbody>
+          {isSuccess?
+            Object.keys(data).filter((key) => Object.keys(niceLabels).includes(key) && data[key]).map((key) => (
               <tr key={key}>
-                <td>{`${niceLabels[key]}:`}</td>
+                <td width="35%">{`${niceLabels[key]}:`}</td>
                 <td>{Array.isArray(data[key])?data[key].join(" \n "):data[key]}</td>
               </tr>
-            ))}
-            </tbody>
-          </Table>
-        :
-          'Loading'
-        }
+            ))
+          :
+            [...Array(12).keys()].map(key => (
+              <tr key={key}>
+                <td width="35%"><Skeleton height="1.5em" width={50+((key*5)%3)*20-(key%4)*10} /></td>
+                <td><Skeleton height="1.5em" width={150+((key*3)%4)*30-(key%3)*20} /></td>
+              </tr>
+            ))
+          }
+          </tbody>
+        </Table>
       </ScrollArea>
     </Box>
   )

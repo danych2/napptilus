@@ -53,7 +53,14 @@ export default function ProductDetails() {
               fit="none"
             />
           :
-            'Loading'
+          <Image
+            withPlaceholder
+            alt={"Loading"}
+            src={null}
+            height="300px"
+            width="200px"
+            fit="none"
+          />
           }          
         </Center>
       </Grid.Col>
@@ -61,33 +68,35 @@ export default function ProductDetails() {
         <ProductDescription data={data} isSuccess={isSuccess} />
         <Divider my="sm" />
         <Box style={{height:"40%"}}>
-          {isSuccess?
-            (
-              <>
-                <Select
-                  label="Color"
-                  value={colorSelected}
-                  onChange={setColor}
-                  data={data.options.colors.map(color => ({value: color.code, label: color.name}))}
-                  sx={selectorStyle}
-                />
-                <Select
-                  label="Storage"
-                  value={storageSelected}
-                  onChange={setStorage}
-                  data={data.options.storages.map(storage => ({value: storage.code, label: storage.name}))}
-                  sx={selectorStyle}
-                />
-                <CartContext.Consumer>
-                  {({incrementSize}) => (
-                    <AddToCartButton pid={pid} colorSelected={colorSelected} storageSelected={storageSelected} updateCartSize={incrementSize} />
-                  )}
-                </CartContext.Consumer>
-              </>
-            )
-          :
-            'Loading'
-          }
+          <Select
+            label="Color"
+            value={isSuccess?colorSelected:""}
+            disabled={!isSuccess}
+            onChange={setColor}
+            data={
+              isSuccess?
+                data.options.colors.map(color => ({value: color.code, label: color.name}))
+              : [{value:"", label: "Loading"}]
+            }
+            sx={selectorStyle}
+          />
+          <Select
+            label="Storage"
+            value={isSuccess?storageSelected:""}
+            disabled={!isSuccess}
+            onChange={setStorage}
+            data={
+              isSuccess?
+                data.options.storages.map(storage => ({value: storage.code, label: storage.name}))
+                : [{value:"", label: "Loading"}]
+            }
+            sx={selectorStyle}
+          />
+          <CartContext.Consumer>
+            {({incrementSize}) => (
+              <AddToCartButton pid={pid} colorSelected={colorSelected} storageSelected={storageSelected} updateCartSize={incrementSize}  dataIsReady={isSuccess} />
+            )}
+          </CartContext.Consumer>
         </Box>
       </Grid.Col>
     </Grid>

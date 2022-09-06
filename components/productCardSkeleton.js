@@ -1,6 +1,4 @@
-import Link from 'next/link';
-import { Paper, Image, Center, Group, Box, Grid, Skeleton } from '@mantine/core';
-import { memo } from 'react';
+import { Paper, Center, Group, Box, Grid, Skeleton } from '@mantine/core';
 
 export default function ProductCardSkeleton() {
   return (
