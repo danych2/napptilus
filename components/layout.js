@@ -7,27 +7,23 @@ export default function Layout({ children }) {
   const [cartSize, setCartSize] = useState(0);
 
   return (
-    <CartContext.Provider value={{size: cartSize, incrementSize: () => {setCartSize(cartSize + 1)}}}>
+    <CartContext.Provider value={{incrementSize: () => {setCartSize(cartSize + 1)}}}>
       <AppShell
         fixed={true}
+        padding="0"
         header={
           <Header height={100} p="md" fixed={true}>
             <HeaderContent cartSize={cartSize} />
           </Header>
         }
+        sx={{
+          height: '100%',
+          '.mantine-AppShell-body': {
+            height: '100%'
+          }
+        }}
       >
-        <ScrollArea
-          type="always"
-          offsetScrollbars
-          sx={{
-            '.mantine-ScrollArea-scrollbar[data-orientation="horizontal"]':{
-              display: 'none',
-              opacity: 0
-            }
-          }}
-        >
-          {children}
-        </ScrollArea>
+        {children}
       </AppShell>
     </CartContext.Provider>
   )

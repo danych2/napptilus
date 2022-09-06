@@ -1,15 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router'
-import { useQuery } from '@tanstack/react-query'
-import { getProductDetails } from 'services/storeAPI'
-import Link from 'next/link'
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { getProductDetails } from 'services/storeAPI';
 import AddToCartButton from 'components/addToCartButton';
 import { CartContext } from 'utils/contexts';
+import { Grid, Center, Image, Divider, Box, Select } from '@mantine/core';
+import ProductDescription from 'components/productDescription';
 
 export default function ProductDetails() {
   const router = useRouter();
   const pid = router.query.pid;
 
+  const [colorSelected, setColor] = useState(null);
+  const [storageSelected, setStorage] = useState(null);
+
+  // Fetch data
   const { data, isSuccess } = useQuery(
     ['productDetail', pid],
     () => getProductDetails(pid),
@@ -17,64 +22,61 @@ export default function ProductDetails() {
       enabled: router.isReady,
       refetchInterval: 3600000,
       staleTime: 3600000,
+      onSuccess: (data) => {
+        setColor(data.options.colors[0].code)
+        setStorage(data.options.storages[0].code)
+      }
     },
   )
 
-  const [colorSelected, setColor] = useState();
-  const [storageSelected, setStorage] = useState();
-
-  useEffect(() => {
-    if(isSuccess) {
-      setColor(data.options.colors[0].code)
-      setStorage(data.options.storages[0].code)
-    }
-  }, [isSuccess, data])
-
-  let content;
-  if (isSuccess) {
-    content = (
-      <>
-      <label>
-          Color:
-          <select value={ colorSelected } onChange={(e)=>{setColor(e.target.value)}}>
-            {
-              data.options.colors.map((color) => {
-                return (
-                  <option key={color.code} value={color.code}>{color.name}</option>
-                )
-              })
-            }
-          </select>
-      </label>
-      <label>
-          Storage:
-          <select value={ storageSelected } onChange={(e)=>{setStorage(e.target.value)}}>
-            {
-              data.options.storages.map((storage) => {
-                return (
-                  <option key={storage.code} value={storage.code}>{storage.name}</option>
-                )
-              })
-            }
-          </select>
-      </label>
-      
-      <CartContext.Consumer>
-        {({size, incrementSize}) => (
-          <AddToCartButton pid={pid} colorSelected={colorSelected} storageSelected={storageSelected} updateCartSize={incrementSize} />
-        )}
-      </CartContext.Consumer>
-      </>
-    )
-  } else {
-    content = 'Loading';
-  }
-
   return (
-    <>
-      {content}
-      <br />
-      <Link href='/'>Go back</Link>
-    </>
+    <Grid columns={12} sx={{width:"100%", height:"100%", '.mantine-Col-root':{height:"100%"}}}>
+      <Grid.Col span={6}>
+        <Center style={{height:"80%"}}>
+          {isSuccess?
+            <Image
+              alt={data.model}
+              src={data.imgUrl}
+              width="50%"
+            />
+          :
+            'Loading'
+          }          
+        </Center>
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <ProductDescription data={data} isSuccess={isSuccess} />
+        <Divider my="sm" />
+        <Box style={{height:"40%"}}>
+          {isSuccess?
+            (
+              <>
+                <Select
+                  label="Color"
+                  value={colorSelected}
+                  onChange={setColor}
+                  data={data.options.colors.map(color => ({value: color.code, label: color.name}))}
+                  style={{width:"50%"}}
+                />
+                <Select
+                  label="Storage"
+                  value={storageSelected}
+                  onChange={setStorage}
+                  data={data.options.storages.map(storage => ({value: storage.code, label: storage.name}))}
+                  style={{width:"50%"}}
+                />
+                <CartContext.Consumer>
+                  {({incrementSize}) => (
+                    <AddToCartButton pid={pid} colorSelected={colorSelected} storageSelected={storageSelected} updateCartSize={incrementSize} />
+                  )}
+                </CartContext.Consumer>
+              </>
+            )
+          :
+            'Loading'
+          }
+        </Box>
+      </Grid.Col>
+    </Grid>
   )
 }

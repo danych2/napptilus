@@ -1,9 +1,10 @@
+import { Box, Button } from '@mantine/core';
 import { useMutation } from '@tanstack/react-query'
 import { addToCart } from 'services/storeAPI'
 
 export default function AddToCartButton({ pid, colorSelected, storageSelected, updateCartSize }) {
 
-  const mutation = useMutation(
+  const { mutate, isLoading } = useMutation(
     (productSelected) => addToCart(productSelected),
     {
       onSuccess: () => {updateCartSize()}
@@ -11,14 +12,20 @@ export default function AddToCartButton({ pid, colorSelected, storageSelected, u
   );
 
   return (
-    <>
-    byee
-    <button onClick={() => {
-        mutation.mutate({ id: pid, colorCode: colorSelected, storageCode: storageSelected })
-      }}
-    >
-      Add to cart
-    </button>
-    </>
+    <Box sx={{width:"50%"}}>
+      <Button
+        variant="outline"
+        color="gray"
+        loading={isLoading}
+        loaderPosition="right"
+        onClick={() => {
+          mutate({ id: pid, colorCode: colorSelected, storageCode: storageSelected })
+        }}
+        mt="md"
+        sx={{width:"50%", float:"right"}}
+      >
+        🛒 Add to cart
+      </Button>
+    </Box>
   )
 }

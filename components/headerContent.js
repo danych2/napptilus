@@ -4,12 +4,12 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 export default function HeaderContent({cartSize}) {
-  const router = useRouter()
-  const items = [<Link key="products" href="/">products</Link>]
-  const pid = router.query.pid
-  if(pid) items.push(<Link key={pid} href={`/${pid}`}>{pid}</Link>)
+  const router = useRouter();
+  const items = [{name: 'products', url: '/'}];
+  const pid = router.query.pid;
+  if(pid) items.push({name: pid, url: `/${pid}`});
   return (
-    <Stack spacing="xs">
+    <Stack spacing="xs" sx={{height:"100%"}}>
       <Group position="apart">
         <Image
           alt="ZARA PHONE"
@@ -20,8 +20,14 @@ export default function HeaderContent({cartSize}) {
         <Text size="sm" mr="xl">{`Products in cart: ${cartSize}`}</Text>
       </Group>
       <Center>
-        <Breadcrumbs>
-          {items}
+        <Breadcrumbs sx={{'a':{cursor:"pointer"}}}>
+          {items.map(item => (
+            <Link key={item.name} href={item.url}>
+              <Text component="a" variant="link" color="gray">
+                {item.name}
+              </Text>
+            </Link>
+          ))}
         </Breadcrumbs>
       </Center>
     </Stack>
