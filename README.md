@@ -18,6 +18,8 @@ To run the application in development mode use:
 ```
 npm run dev
 ```
+You can then go to `http://localhost:3000/` in your browser to see the website.
+
 #### Linter and testing
 To run the linter:
 ```
@@ -32,6 +34,8 @@ This will automatically start the app in development mode. If you want to instea
 ```
 npm run cypress
 ```
+Once the cypress app opens, click `E2E Testing` and then select the browser of your choice (so far the website has mostly been tested on Chrome). Click `Start E2E testing` to launch the browser. Once there select the script `napptilus.cy.js` to run the tests.
+
 #### Production mode
 To run the application in production mode, first build the app:
 ```
@@ -48,7 +52,7 @@ You can also run the app inside a Docker container:
 - Install [Docker](https://docs.docker.com/engine/install/)
 - Make sure Docker daemon is running
 - Build Docker image: `docker build -t napptilus-docker .`
-- Run Docker container: `docker run -p 3000:3000 napptilus`
+- Run Docker container: `docker run -p 3000:3000 napptilus-docker`
 
 ## Authors
 Daniel Duato Catalán

@@ -35,6 +35,9 @@ export default function ProductDetails() {
     '.mantine-Select-item[data-selected]': {
       backgroundColor: 'gray',
     },
+    '.mantine-Select-item[data-selected]:hover': {
+      backgroundColor: 'gray',
+    },
     '.mantine-Input-input:focus-within': {
       borderColor: 'gray',
     },

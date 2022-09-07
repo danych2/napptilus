@@ -19,7 +19,8 @@ export default function Home() {
 
   return (
     <ScrollArea
-    p="sm"
+    p="0px"
+    pl="sm"
     type="always"
     offsetScrollbars
     sx={{
@@ -43,7 +44,7 @@ export default function Home() {
         }}
       />
     </Group>
-    <Grid mr="md">
+    <Grid>
       {
         isSuccess?
           data.filter((product) =>

@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 
 export default function HeaderContent({cartSize}) {
   const router = useRouter();
+
+  // Create breadcrumbs URLs
   const items = [{name: 'products', url: '/'}];
   const pid = router.query.pid;
   if(pid) items.push({name: pid, url: `/${pid}`});
